@@ -1,0 +1,4 @@
+#!/bin/sh
+
+xrandr --output LVDS1 --mode 1600x900 --scale-from 1600x900 && \
+  xrandr --output HDMI1 --mode 1920x1080 --scale-from 1600x900

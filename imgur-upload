@@ -1,0 +1,15 @@
+#!/bin/bash
+
+CLIENT_ID=78813c4842dcfc0
+RESPONSE=$(mktemp)
+
+HTTP_CODE=$(curl --silent --write-out %{http_code} --output "$RESPONSE" \
+  --header "Authorization: Client-ID ${CLIENT_ID}" \
+  --form image="@${1}" https://api.imgur.com/3/image)
+if [ $? -eq 0 ]; then
+  if [ $HTTP_CODE = "200" ]; then
+    jq -r .data.link "$RESPONSE"
+  else
+    jq -r .data.error "$RESPONSE"
+  fi
+fi
